@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
 	"fmt"
+	"github.com/astaxie/beego"
 	"strings"
 )
 
@@ -20,6 +20,7 @@ func (u *UploadFileController) post() {
 		u.Ctx.WriteString("抱歉，文件解析失败，请重试")
 		return
 	}
+	defer file.Close()
 	fmt.Println("自定义的标题：",title)
 	//获得到了上传的文件
 	fmt.Println("上传的文件名称：",header.Filename)
@@ -40,6 +41,21 @@ func (u *UploadFileController) post() {
 		return
 	}
 	fmt.Println("上传的文件的大小：",header.Size)//字节大小
+
+	//perm:permission 权限
+	//权限的组成：a+b+c
+	  //a: 文件所有者对文件的操作权限,读   写   执行
+	  //b:文件所有者所在组的用户的操作权限，读   写   执行
+	  //c: 其他用户的操作权限，读   写   执行
+	//os.Mkdir()
+	//fromFile:文"static/upload"件
+	//toFile:要保存的文件
+	//u.SaveToFile()
+
+
+
+
+
 	fmt.Println("上传的文件：",file)
 	u.Ctx.WriteString("已获取到上传的文件")
 }
